@@ -1,3 +1,5 @@
+#Srihari Vishnu's Solution to CCC J4 : Global Warming
+
 a = map(int, raw_input().split())
 while a[0] != 0:
   length = a[0]
