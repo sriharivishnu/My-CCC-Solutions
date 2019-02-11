@@ -1,3 +1,5 @@
+//Solution by Srihari Vishnu
+//Drawing out a string tree helps to visualize
 #include <iostream>
 #include <string>
 #include <stdio.h>
