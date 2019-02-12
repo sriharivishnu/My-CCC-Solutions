@@ -13,15 +13,6 @@ int k,n,m;
 pair<int,int> visited[2001];
 vector<vector<int> > adjList[2001]; 
 priority_queue<vector<int> > que;
-void printGraph() {
-  for (int i = 0; i<= n; i++) {
-    cout<<i<<": {";
-    for (int j = 0; j < adjList[i].size(); j++) {
-      cout << "{" << adjList[i][j][0] << "," << adjList[i][j][1] << "," << adjList[i][j][2] << "}, ";
-    }
-    cout << "}" << endl;
-  }
-}
 void init() {
   for (int i = 0; i <= n; i++) {
     visited[i].first = inf;
@@ -41,7 +32,6 @@ int main() {
     adjList[a].push_back(getVector(b, t, h));
     adjList[b].push_back(getVector(a,t,h));
   }
-  //printGraph();
   init();
   cin >> a >> b;
   que.push(getVector(0,a,k));
