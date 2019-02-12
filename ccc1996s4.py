@@ -1,6 +1,7 @@
 #Solution by Srihari Vishnu
 #Converts both numbers to decimal, adds them, and then converts back to roman
-#Looks ugly but works
+#When converting back to Roman, if four of the same character occurs, replace last 5
+#characters with the higher value and add the previous value in front of it. Ex. LIIII = IC
 def toDecimal(roman, values):
   x = 0
   total = 0
