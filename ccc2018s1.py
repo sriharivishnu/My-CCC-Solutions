@@ -1,3 +1,4 @@
+#Solution by Srihari Vishnu
 n = input()
 ar = []
 neighbour = [0.0 for x in range(n)]
