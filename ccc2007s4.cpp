@@ -1,7 +1,7 @@
 // Solution by Srihari Vishnu
 // Starting from bottom and building up
 // Noticing the value at each node is the sum of all the nodes
-// It leads to
+// it leads to
 #include <iostream>
 #include <stack>
 #include <string>
