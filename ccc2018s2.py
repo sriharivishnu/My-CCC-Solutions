@@ -1,6 +1,6 @@
-//Solution by Srihari Vishnu
-// Passes all test cases
-// Matrix rotation
+#Solution by Srihari Vishnu
+#Passes all test cases
+#Matrix rotation
 def printOut(matrix):
   for row in matrix:
     print " ".join(map(str,row))
