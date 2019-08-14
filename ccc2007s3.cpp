@@ -1,6 +1,6 @@
-#Solution by Srihari Vishnu
-#CCC 2007 S3 : Friends
-#Each node has at most one connection, simple search
+//Solution by Srihari Vishnu
+//CCC 2007 S3 : Friends
+//Each node has at most one connection, simple search
 
 
 #include <iostream>
