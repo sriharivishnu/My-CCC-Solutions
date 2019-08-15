@@ -1,4 +1,4 @@
-#Solution by
+#Solution by Srihari Vishnu
 mindist = input()
 maxdist = input()
 N = input()
