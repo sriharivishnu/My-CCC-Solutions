@@ -1,8 +1,7 @@
 //Solution by Srihari Vishnu
 //Same algorithm works in Python too
 //Modified Dijkstra's Algorithm to not allow paths once hull thickness is below 0
-//Passes every test case except weirdly gives wrong answer for one test case. When tried same test case manually,
-//program produces correct answer.
+// 14/15 points
 
 #include <iostream>
 #include <vector>
