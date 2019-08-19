@@ -1,6 +1,6 @@
-#Solution by Srihari Vishnu
-#Dynamic Programming
-#C++ Solution to CCC 2007 J5 : Keep on Truckin'
+//Solution by Srihari Vishnu
+//Dynamic Programming
+//C++ Solution to CCC 2007 J5 : Keep on Truckin'
 
 #include <iostream>
 #include <vector>
