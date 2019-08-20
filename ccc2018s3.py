@@ -51,7 +51,7 @@ for camera in cameras:
 
 queue = [[start[0],start[1],0]]
 while queue:
-  c = queue.pop()
+  c = queue.pop(0)
   character = grid[c[0]][c[1]]
   if numbers[c[0]][c[1]] != -1 and character != "C":
     if character in conv and (numbers[c[0]][c[1]] > c[2]):
