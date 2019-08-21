@@ -1,57 +1,72 @@
 //Solution by Srihari Vishnu
-//Same algorithm works in Python too
-//Modified Dijkstra's Algorithm to not allow paths once hull thickness is below 0
-// 14/15 points
+//CCC 2015 S4 : Convex Hull
+//Modified Dijkstra's Algorithm to store thickness of all paths
 
 #include <iostream>
 #include <vector>
 #include <queue>
+
 using namespace std;
-const int inf = 999999999;
-int k,n,m;
-pair<int,int> visited[2001];
-vector<vector<int> > adjList[2001]; 
-priority_queue<vector<int> > que;
-void init() {
-  for (int i = 0; i <= n; i++) {
-    visited[i].first = inf;
-    visited[i].second = -1;
+
+struct Edge {
+  int i, t, h;
+  Edge() {};
+  Edge(int isle, int time, int hi) {i = isle; t = time; h = hi;}
+  bool operator<(const Edge &e) const {
+    if (t==e.t) {
+      return h < e.h;
+    }
+    return t > e.t;
   }
-}
-vector<int> getVector(int x,int y,int z) {
-  int temp[] = {x,y,z};
-  return vector<int>(temp,temp+3);
-}
+};
+struct Island {
+  vector<Edge> connected;
+};
+
+int k, n, m, a, b, t, h, best[2001][201];
+Island isles[2001];
+priority_queue<Edge> pq;
+Edge curr;
+
+using namespace std;
 int main() {
-  int a,b,t,h;
-  vector<int> c;
-  cin >> k >> n >> m;
-  for (int i = 0; i < m; i++) {
-    cin >> a >> b >> t >> h;
-    adjList[a].push_back(getVector(b, t, h));
-    adjList[b].push_back(getVector(a,t,h));
-  }
-  init();
-  cin >> a >> b;
-  que.push(getVector(0,a,k));
-  visited[a].first = 0;
-  visited[a].second = k;
-  vector<int> node;
-  while (!que.empty()) {
-    c = que.top();
-    que.pop();
-    for (int n = 0; n < adjList[c[1]].size(); n++) {    
-      if (c[2] - adjList[c[1]][n][2] > 0) {
-        if (c[0] + adjList[c[1]][n][1] < visited[adjList[c[1]][n][0]].first) {
-          visited[adjList[c[1]][n][0]].first = c[0] + adjList[c[1]][n][1];
-          visited[adjList[c[1]][n][0]].second = c[2] - adjList[c[1]][n][2];
-          que.push(getVector(c[0] + adjList[c[1]][n][1], adjList[c[1]][n][0],c[2] - adjList[c[1]][n][2]));
-        }
-      }
+  scanf("%d%d%d", &k, &n, &m);
+  for (int i = 0 ; i < n+1; i++) {
+    isles[i] = Island();
+    for (int j = 0; j < 201; j++) {
+      best[i][j] = 999999999;
     }
   }
-  if (visited[b].first == inf) {
-    visited[b].first = -1;
+  while (m--) {
+    scanf("%d%d%d%d", &a, &b, &t, &h);
+    isles[a].connected.push_back(Edge(b,t,h));
+    isles[b].connected.push_back(Edge(a,t,h));
   }
-  cout << visited[b].first;
+  scanf("%d%d", &a, &b);
+  pq.push(Edge(a, 0, k));
+  best[a][k] = 0;
+  while (!pq.empty()) {
+    curr = pq.top();
+    pq.pop();
+    for (Edge e : isles[curr.i].connected) {
+      if ((curr.t + e.t < best[e.i][curr.h-e.h]) && curr.h - e.h > 0) {
+        best[e.i][curr.h-e.h] = curr.t + e.t;
+        pq.push(Edge(e.i, curr.t + e.t, curr.h - e.h));
+      }
+    }
+    if (curr.i == b) {
+      break;
+    }
+  }
+  int ans = 999999999;
+  for (int i = 0; i < 201; i++) {
+    if (best[b][i] < ans) {
+      ans = best[b][i];
+    }
+  }
+  if (ans == 999999999) {
+    cout << -1;
+  } else {
+    cout << ans;
+  }
 }
