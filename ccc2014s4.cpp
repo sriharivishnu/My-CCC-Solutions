@@ -1,13 +1,10 @@
-//Solution by Srihari Vishnu
-//CCC 2014 S4 : Tinted Glass Window
-
 #include <iostream>
 #include <set>
 #include <vector>
-#include <algorithm>
 using namespace std;
 long n, xl, yl, xr, yr,w;
 long t;
+set<long> xranges, yranges;
 vector<long> xindexed, yindexed;
 long rects[1002][5];
 long tints[2002][2002] = {0};
@@ -31,15 +28,14 @@ int main() {
     scanf("%ld%ld%ld%ld%ld", &xl, &yl, &xr, &yr, &w);
     long temp[5] = {xl,yl,xr, yr,w};
     for (int j = 0; j < 5; j++) {rects[i][j] = temp[j];}
-    xindexed.push_back(xl);
-    xindexed.push_back(xr);
-    yindexed.push_back(yl);
-    yindexed.push_back(yr);
+    xranges.insert(xl);
+    xranges.insert(xr);
+    yranges.insert(yl);
+    yranges.insert(yr);
   }
-  sort(xindexed.begin(), xindexed.end());
-  sort(yindexed.begin(), yindexed.end());
-  xindexed.erase(unique(xindexed.begin(), xindexed.end() ), xindexed.end());
-  yindexed.erase(unique(yindexed.begin(),yindexed.end() ), yindexed.end());
+  xindexed.assign(xranges.begin(), xranges.end());
+  yindexed.assign(yranges.begin(), yranges.end());
+  
   long long ans = 0;
   for (long* a : rects) {
     for (int i = binary_search(a[0], xindexed); xindexed[i] < a[2] && i < xindexed.size()-1; i++) {
@@ -52,6 +48,5 @@ int main() {
     }
     
   }
-  printf("%lld",ans);
-  
+  cout << ans;
 }
