@@ -1,3 +1,5 @@
+#Solution by Srihari Vishnu
+
 for a0 in range(input()):
   s = input()
   v = input()
@@ -16,5 +18,4 @@ for a0 in range(input()):
   for x in range(s):
     for y in range(v):
       for z in range(o):
-        print subjects[x]+" "+verbs[y]+" "+objects[z]
-  
+        print subjects[x]+" "+verbs[y]+" "+objects[z]+"."
