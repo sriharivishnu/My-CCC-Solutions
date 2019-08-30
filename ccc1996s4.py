@@ -52,6 +52,6 @@ for x in range(input()):
 
   answer = a+b
   if a+b>1000:
-    print "CONCORDIA CUM VERITATE"
+    print inp[0]+"+"+inp[1] +"CONCORDIA CUM VERITATE"
   else:
     print inp[0]+"+"+inp[1]+toRoman(answer)
