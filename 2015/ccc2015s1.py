@@ -1,5 +1,5 @@
-//Solution by Srihari Vishnu
-//Straightforward stack approach
+#Solution by Srihari Vishnu
+#Straightforward stack approach
 arr = []
 for x in range(input()):
   y = input()
@@ -8,4 +8,4 @@ for x in range(input()):
   else:
     arr.append(y)
 
-print sum(arr)
+print (sum(arr))
