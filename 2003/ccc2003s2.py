@@ -1,5 +1,5 @@
 #Solution by Srihari Vishnu
-
+# CCC 2003 S2 : Poetry
 def find_last(a):
     i =len(a)
     while (i > 0):
