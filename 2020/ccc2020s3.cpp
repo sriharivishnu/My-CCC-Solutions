@@ -1,5 +1,3 @@
-// Receives 15 / 20 on DMOJ, would have received 15/15 on CCC grader
-
 #include <assert.h>
 
 #include <algorithm>
@@ -35,30 +33,27 @@ size_t solve() {
     cin >> n >> h;
     if (n.size() > h.size()) return 0;
 
-    ll counts[26] = {0}, targetCounts[26] = {0}, base1 = 131, base2 = 137,
-       base3 = 253;
-    ll hash1 = 0, hash2 = 0, hash3 = 0;
+    ll counts[26] = {0}, targetCounts[26] = {0}, base1 = 131, base2 = 137;
+    ll hash1 = 0, hash2 = 0;
 
-    ll power1 = 1, power2 = 1, power3 = 1;
+    ll power1 = 1, power2 = 1;
     for (size_t i = 1; i < n.size(); ++i) {
         power1 = power1 * base1;
         power2 = power2 * base2;
-        power3 = power3 * base3;
     }
 
-    set<tuple<ll, ll, ll>> hashes;
+    map<tuple<ll, ll>, vector<ll>> hashes;
 
     for (size_t i = 0; i < n.size(); ++i) {
         targetCounts[n[i] - 'a']++;
         counts[h[i] - 'a']++;
         hash1 = (hash1 * base1) + (h[i] - 'a' + 1);
         hash2 = (hash2 * base2) + (h[i] - 'a' + 1);
-        hash3 = (hash3 * base3) + (h[i] - 'a' + 1);
     }
 
     if (equal(begin(counts), end(counts), begin(targetCounts),
               end(targetCounts))) {
-        hashes.emplace(hash1, hash2, hash3);
+        hashes[make_tuple(hash1, hash2)].push_back(0);
     }
 
     for (size_t i = n.size(); i < h.size(); ++i) {
@@ -70,15 +65,29 @@ size_t solve() {
         hash2 = hash2 - power2 * (h[i - n.size()] - 'a' + 1);
         hash2 = hash2 * base2 + (h[i] - 'a' + 1);
 
-        hash3 = hash3 - power3 * (h[i - n.size()] - 'a' + 1);
-        hash3 = hash3 * base3 + (h[i] - 'a' + 1);
-
+        // counts are equal
+        // if hashes are not equal
+        // if it is a permutation
         if (equal(begin(counts), end(counts), begin(targetCounts),
                   end(targetCounts))) {
-            hashes.emplace(hash1, hash2, hash3);
+            bool found = false;
+            for (const auto& start : hashes[{hash1, hash2}]) {
+                if (std::string_view{h.data() + (i - n.size() + 1), n.size()} ==
+                    std::string_view{h.data() + start, n.size()}) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                hashes[{hash1, hash2}].push_back(i - n.size() + 1);
+            }
         }
     }
-    return hashes.size();
+
+    size_t ans = 0;
+    for (const auto& [k, v] : hashes) {
+        ans += v.size();
+    }
+    return ans;
 }
 
 int main() { printf("%lu", solve()); }
